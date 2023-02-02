@@ -1,5 +1,6 @@
 import { GAME_STATUS, PAIRS_COUNT, GAME_TIME } from './constants.js';
 import {
+  getColorBackground,
   getColorElementList,
   getColorListElement,
   getInActiveColorList,
@@ -29,6 +30,7 @@ function handleTimerChange(seconds) {
 function handleTimerFinish() {
   gameStatus = GAME_STATUS.FINISHED;
   setTimerText('GAME OVER');
+  showPlayAgainButton();
 }
 
 //TODO
@@ -73,6 +75,10 @@ function handleColorClick(liElement) {
   const secondColor = selections[1].dataset.color;
   const isMatch = firstColor === secondColor;
   if (isMatch) {
+    const backgroundColor = getColorBackground();
+    if (backgroundColor) {
+      backgroundColor.style.backgroundColor = firstColor;
+    }
     //check win
 
     const isWin = getInActiveColorList().length === 0;
